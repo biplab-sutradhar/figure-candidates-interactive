@@ -1,6 +1,5 @@
 library(animint2)
 library(data.table)
-# works_with_R('3.6.0', animint2="2019.7.3", data.table="1.12.8")
 
 viz.data <- readRDS("figure-candidates-interactive-data.rds")
 
@@ -161,87 +160,103 @@ for(algo in names(point.size)){
 viz <- animint(
   title="LOPART algorithm",
   source = "https://github.com/biplab-sutradhar/figure-candidates-interactive/blob/main/figure-candidates-interactive.R",
-  signalCost=gg+
-    ggtitle("Data/model and cost for selected penalty")+
+  signalCost = gg +
+    ggtitle("Data/model and cost for selected penalty") +
     geom_tallrect(aes(
-      key=last.change,
-      xmin=last.change,
-      xmax=last.change+1),
-      showSelected=c("up.to.t"),
-      alpha=0.5,
-      color=sig.color,
-      clickSelects="last.change",
-      data=COST(last.change.dt))+
+      key = last.change,
+      xmin = last.change,
+      xmax = last.change + 1),
+      showSelected = c("up.to.t"),
+      alpha = 0.5,
+      color = sig.color,
+      clickSelects = "last.change",
+      data = COST(last.change.dt)) +
     geom_tallrect(aes(
-      xmin=up.to.t-0.5, xmax=up.to.t+0.5),
-      color=sig.color,
-      alpha=0.5,
-      clickSelects="up.to.t",
-      data=DATA(up.to.dt)),
-  cost = ggplot()+  
-  ggtitle("Cost for selected penalty")+
-  coord_equal()+
-  geom_tile(aes(
+      xmin = up.to.t - 0.5, xmax = up.to.t + 0.5),
+      color = sig.color,
+      alpha = 0.5,
+      clickSelects = "up.to.t",
+      data = DATA(up.to.dt)),
+  
+  cost = ggplot() +  
+    ggtitle("Cost for selected penalty") +
+    coord_equal() +
+    # Background tiles showing all cost values
+    geom_tile(aes(
       up.to.t, last.change,
       key = paste(up.to.t, last.change),
-      fill = relative.cost
-    ),
-    colour = NA,                               
-    showSelected = c("penalty","Algorithm"),
-    data = viz.data$cost
-  ) +
-  geom_tallrect(aes(
-      xmin = up.to.t - .5, xmax = up.to.t + .5
-    ),
-    color = sig.color,
-    alpha = 0.3,
-    clickSelects = "up.to.t",
-    data = up.to.dt
-  )+
-  geom_point(aes(
-  up.to.t, last.change,
-  key = 1),
-  shape = 21,
-  fill = "black",
-  size = 3,
-  data = viz.data$cost,
-  showSelected = c("penalty", "up.to.t", "last.change", "Algorithm"))
-  +
-  scale_fill_gradient(
-    low  = "red",
-    high = "grey90",
-    limits = c(0, 1),
-    na.value = "grey90"
-  )+
-  theme_bw()+
-  theme(panel.margin = grid::unit(0, "lines"))+
-  theme_animint(width = 500, height = 300)+
-  facet_grid(. ~ Algorithm),
-  penalties=ggplot()+
-    ggtitle("Select penalty")+
-    theme_bw()+
+      fill = relative.cost),
+      colour = NA,  # No border around tiles
+      showSelected = c("penalty", "Algorithm"),
+      data = viz.data$cost) +
+    
+    # Highlight for selected up.to.t
+    geom_tallrect(aes(
+      xmin = up.to.t - 0.5, xmax = up.to.t + 0.5),
+      color = sig.color,
+      alpha = 0.3,
+      clickSelects = "up.to.t",
+      data = up.to.dt) +
+    
+    # Tiles for current selection (with border)
+    geom_tile(aes(
+      up.to.t, last.change,
+      key = last.change,
+      fill = relative.cost),
+      color = "black",  # Border for selected tiles
+      size = 0.5,
+      showSelected = c("penalty", "up.to.t", "Algorithm"),
+      clickSelects = "last.change",
+      data = viz.data$cost) +
+    
+    # Black dot for current selection
+    geom_point(aes(
+      up.to.t, last.change,
+      key = 1),
+      shape = 21,
+      fill = "black",
+      size = 3,
+      data = viz.data$cost,
+      showSelected = c("penalty", "up.to.t", "last.change", "Algorithm")) +
+    
+    # Red gradient styling
+    scale_fill_gradient(
+      low = "red",
+      high = "grey90",
+      limits = c(0, 1),
+      na.value = "grey90") +
+    
+    theme_bw() +
+    theme(panel.margin = grid::unit(0, "lines")) +
+    theme_animint(width = 500, height = 300) +
+    facet_grid(. ~ Algorithm),
+  
+  penalties = ggplot() +
+    ggtitle("Select penalty") +
+    theme_bw() +
     theme(
-      legend.position="none",
-      panel.margin=grid::unit(0, "lines"))+
-    theme_animint(width=300, height=300)+
+      legend.position = "none",
+      panel.margin = grid::unit(0, "lines")) +
+    theme_animint(width = 300, height = 300) +
     geom_line(aes(
       log10(penalty), log10(segments),
-      color=Algorithm, group=Algorithm),
-      showSelected="Algorithm",
-      data=pen.seg.dt)+
-    scale_color_manual(values=c(
-      OPART="deepskyblue",
-      LOPART="black"),
-      drop=FALSE)+
+      color = Algorithm, group = Algorithm),
+      showSelected = "Algorithm",
+      data = pen.seg.dt) +
+    scale_color_manual(values = c(
+      OPART = "deepskyblue",
+      LOPART = "black"),
+      drop = FALSE) +
     geom_tallrect(aes(
-      xmin=log10(penalty)-0.5,
-      xmax=log10(penalty)+0.5),
-      data=pen.seg.dt,
-      color="grey",
-      alpha=0.5,
-      clickSelects="penalty"),
-  first=list(penalty=10),
-  duration=list(up.to.t=2000, last.change=2000, penalty=2000)
+      xmin = log10(penalty) - 0.5,
+      xmax = log10(penalty) + 0.5),
+      data = pen.seg.dt,
+      color = "grey",
+      alpha = 0.5,
+      clickSelects = "penalty"),
+  
+  first = list(penalty = 10),
+  duration = list(up.to.t = 2000, last.change = 2000, penalty = 2000)
 )
 animint2dir(viz, "figure-candidates-interactive", open.browser=FALSE)
 

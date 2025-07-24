@@ -13,7 +13,6 @@ for(data.type in names(viz.data)){
   data.table::fwrite(dt, out.csv)
 }
 
-
 viz.data$cost[, last.change := tau]
 best.overall <- viz.data$cost[up.to.t == 100, {
   .SD[which.min(cost_candidates)]
@@ -199,6 +198,15 @@ viz <- animint(
     clickSelects = "up.to.t",
     data = up.to.dt
   )+
+  geom_point(aes(
+  up.to.t, last.change,
+  key = 1),
+  shape = 21,
+  fill = "black",
+  size = 3,
+  data = viz.data$cost,
+  showSelected = c("penalty", "up.to.t", "last.change", "Algorithm"))
+  +
   scale_fill_gradient(
     low  = "red",
     high = "grey90",

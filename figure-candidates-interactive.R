@@ -160,7 +160,8 @@ for(algo in names(point.size)){
       data=COST(min.dt[Algorithm==algo]))
 }
 viz <- animint(
-  title="LOPART algorithm", 
+  title="LOPART algorithm",
+  source = "https://github.com/biplab-sutradhar/figure-candidates-interactive/blob/main/figure-candidates-interactive.R",
   signalCost=gg+
     ggtitle("Data/model and cost for selected penalty")+
     geom_tallrect(aes(
@@ -186,7 +187,7 @@ viz <- animint(
       key = paste(up.to.t, last.change),
       fill = relative.cost
     ),
-    colour = NA,                               # 🔥 no black outline
+    colour = NA,                               
     showSelected = c("penalty","Algorithm"),
     data = viz.data$cost
   ) +

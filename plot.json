@@ -3398,13 +3398,91 @@
 "chunks": 1,
 "total": 1 
 },
-"geom17_point_cost": {
- "geom": "point",
-"classed": "geom17_point_cost",
+"geom17_tile_cost": {
+ "geom": "rect",
+"classed": "geom17_tile_cost",
 "aes": {
  "x": "up.to.t",
 "y": "last.change",
-"key": "1",
+"key": "last.change",
+"fill": "relative.cost",
+"clickSelects": "last.change",
+"showSelected1": "penalty",
+"showSelected2": "up.to.t",
+"showSelected3": "Algorithm" 
+},
+"params": {
+ "na.rm": false,
+"na.rm": false,
+"colour": "#000000",
+"size":      0.5,
+"showSelected": [ "penalty", "up.to.t", "Algorithm" ],
+"clickSelects": "last.change",
+"help_showSelected": [ "penalty", "up.to.t", "Algorithm" ],
+"help_clickSelects": "last.change" 
+},
+"types": {
+ "fill": "rgb",
+"x": "numeric",
+"y": "numeric",
+"key": "numeric",
+"clickSelects": "numeric",
+"showSelected1": "numeric",
+"showSelected2": "integer",
+"showSelected3": "factor",
+"PANEL": "factor",
+"group": "character",
+"xmin": "numeric",
+"xmax": "numeric",
+"ymin": "numeric",
+"ymax": "numeric" 
+},
+"chunk_order": [
+ "penalty" 
+],
+"nest_order": [
+ "showSelected2",
+"showSelected3",
+"PANEL" 
+],
+"subset_order": [
+ "showSelected2",
+"showSelected3",
+"PANEL" 
+],
+"columns": {
+ "common": [
+ "x",
+"y",
+"key",
+"clickSelects",
+"showSelected2",
+"showSelected3",
+"PANEL",
+"xmin",
+"xmax",
+"ymin",
+"ymax",
+"group" 
+] 
+},
+"chunks": {
+ "0.01": 1,
+"0.1": 2,
+"1": 3,
+"10": 4,
+"100": 5,
+"1000": 6 
+},
+"total": 6 
+},
+"geom18_point_cost": {
+ "geom": "point",
+"classed": "geom18_point_cost",
+"aes": {
+ "x": "up.to.t",
+"y": "last.change",
+"key": "paste(up.to.t, last.change)",
 "showSelected1": "penalty",
 "showSelected2": "up.to.t",
 "showSelected3": "last.change",
@@ -3422,7 +3500,7 @@
 "types": {
  "x": "numeric",
 "y": "numeric",
-"key": "numeric",
+"key": "character",
 "showSelected1": "numeric",
 "showSelected2": "integer",
 "showSelected3": "numeric",
@@ -3455,9 +3533,9 @@
 },
 "total": 6 
 },
-"geom18_line_penalties": {
+"geom19_line_penalties": {
  "geom": "line",
-"classed": "geom18_line_penalties",
+"classed": "geom19_line_penalties",
 "aes": {
  "x": "log10(penalty)",
 "y": "log10(segments)",
@@ -3490,9 +3568,9 @@
 "chunks": 1,
 "total": 1 
 },
-"geom19_tallrect_penalties": {
+"geom20_tallrect_penalties": {
  "geom": "tallrect",
-"classed": "geom19_tallrect_penalties",
+"classed": "geom20_tallrect_penalties",
 "aes": {
  "xmin": "log10(penalty) - 0.5",
 "xmax": "log10(penalty) + 0.5",
@@ -3552,8 +3630,9 @@
 "geom11_point_signalCost",
 "geom12_point_signalCost",
 "geom15_tile_cost",
-"geom17_point_cost",
-"geom18_line_penalties" 
+"geom17_tile_cost",
+"geom18_point_cost",
+"geom19_line_penalties" 
 ] 
 },
 "up.to.t": {
@@ -3577,7 +3656,8 @@
 "geom13_tallrect_signalCost",
 "geom14_tallrect_signalCost",
 "geom16_tallrect_cost",
-"geom17_point_cost" 
+"geom17_tile_cost",
+"geom18_point_cost" 
 ],
 "duration":     2000 
 },
@@ -3594,7 +3674,8 @@
 "geom7_segment_signalCost",
 "geom10_segment_signalCost",
 "geom13_tallrect_signalCost",
-"geom17_point_cost" 
+"geom17_tile_cost",
+"geom18_point_cost" 
 ],
 "duration":     2000 
 },
@@ -3614,8 +3695,9 @@
 "geom11_point_signalCost",
 "geom12_point_signalCost",
 "geom15_tile_cost",
-"geom17_point_cost",
-"geom19_tallrect_penalties" 
+"geom17_tile_cost",
+"geom18_point_cost",
+"geom20_tallrect_penalties" 
 ],
 "duration":     2000 
 } 
@@ -4003,7 +4085,7 @@
 "legend": {
  "relative.cost": {
  "guide": "legend",
-"geoms": "polygon",
+"geoms": [ "polygon", "polygon" ],
 "title": "relative.cost",
 "class": "relative.cost",
 "selector": null,
@@ -4014,33 +4096,38 @@
 "entries": [
  {
  "polygonfill": "#E5E5E5",
-"polygonsize":      0.1,
+"polygonsize":      0.5,
 "polygonlinetype":        1,
-"label": "1.00" 
+"label": "1.00",
+"polygoncolour": "#000000" 
 },
 {
  "polygonfill": "#FABCAC",
-"polygonsize":      0.1,
+"polygonsize":      0.5,
 "polygonlinetype":        1,
-"label": "0.75" 
+"label": "0.75",
+"polygoncolour": "#000000" 
 },
 {
  "polygonfill": "#FF9276",
-"polygonsize":      0.1,
+"polygonsize":      0.5,
 "polygonlinetype":        1,
-"label": "0.50" 
+"label": "0.50",
+"polygoncolour": "#000000" 
 },
 {
  "polygonfill": "#FF6141",
-"polygonsize":      0.1,
+"polygonsize":      0.5,
 "polygonlinetype":        1,
-"label": "0.25" 
+"label": "0.25",
+"polygoncolour": "#000000" 
 },
 {
  "polygonfill": "#FF0000",
-"polygonsize":      0.1,
+"polygonsize":      0.5,
 "polygonlinetype":        1,
-"label": "0.00" 
+"label": "0.00",
+"polygoncolour": "#000000" 
 } 
 ] 
 } 
@@ -4285,7 +4372,8 @@
 "geoms": [
  "geom15_tile_cost",
 "geom16_tallrect_cost",
-"geom17_point_cost" 
+"geom17_tile_cost",
+"geom18_point_cost" 
 ] 
 },
 "penalties": {
@@ -4442,11 +4530,12 @@
 "height":      300 
 },
 "geoms": [
- "geom18_line_penalties",
-"geom19_tallrect_penalties" 
+ "geom19_line_penalties",
+"geom20_tallrect_penalties" 
 ] 
 } 
 },
 "source": "https://github.com/biplab-sutradhar/figure-candidates-interactive/blob/main/figure-candidates-interactive.R",
+"video": "https://youtu.be/BTisswDmAss",
 "title": "LOPART algorithm" 
 }
